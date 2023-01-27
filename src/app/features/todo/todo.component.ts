@@ -10,15 +10,37 @@ import { Todo } from './todo';
   standalone: true,
   imports: [CommonModule, TodoItemComponent],
   template: `
+    <h1>ToDos</h1>
+    <button (click)="addTodo()">New</button>
     <app-todo-item
+      class="items"
       *ngFor="let toDo of toDoItems$ | async"
       [toDo]="toDo"
     ></app-todo-item>
   `,
-  styles: [],
+  styles: [
+    `
+      :host {
+        display: block;
+        text-align: center;
+      }
+
+      .items {
+        margin: 0 auto;
+      }
+    `,
+  ],
 })
 export class TodoComponent {
   constructor(private readonly todoService: TodoService) {}
 
   toDoItems$: Observable<Todo[]> = this.todoService.getTodos();
+
+  addTodo() {
+    this.todoService.addTodo({
+      completed: false,
+      description: 'This is a test',
+      date: new Date().toString(),
+    });
+  }
 }
