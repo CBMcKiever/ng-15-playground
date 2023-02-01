@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TodoComponent } from './features/todo/todo.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'todo' },
-  { path: 'todo', component: TodoComponent },
+  {
+    path: 'todo',
+    loadChildren: () =>
+      import('./features/todo/routes').then((mod) => mod.TODO_ROUTES),
+  },
 ];
 
 @NgModule({

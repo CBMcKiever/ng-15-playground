@@ -1,12 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Todo } from './todo';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-todo-item',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   template: `
     <div class="item">
       <input
@@ -20,7 +21,7 @@ import { FormsModule } from '@angular/forms';
         toDo.description
       }}</label>
       <div class="options">
-        <button>?</button>
+        <button [routerLink]="['detail', toDo.id?.toString()]">?</button>
         <button>X</button>
       </div>
     </div>
